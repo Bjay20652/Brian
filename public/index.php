@@ -28,7 +28,7 @@ function generateToken($user_id) {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -52,7 +52,7 @@ function validateToken($token) {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -79,7 +79,7 @@ function markTokenAsUsed($token) {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -97,7 +97,7 @@ function updateTokenStatus($token, $status) {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -119,7 +119,7 @@ $app->post('/user/register', function (Request $request, Response $response, arr
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -131,7 +131,7 @@ $app->post('/user/register', function (Request $request, Response $response, arr
         $count = $stmt->fetchColumn();
 
         if ($count > 0) {
-            $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => "username $uname is already registered!"))));
+            $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => "sucess"))));
         } else {
             $sql = "INSERT INTO users_tbl (username, password) VALUES (:username, :password)";
             $stmt = $conn->prepare($sql);
@@ -140,7 +140,7 @@ $app->post('/user/register', function (Request $request, Response $response, arr
             $stmt->bindParam(':password', $hashedPassword);
             $stmt->execute();
 
-            $response->getBody()->write(json_encode(array("status" => "successfully added username $uname", "data" => null)));
+            $response->getBody()->write(json_encode(array("status" => "success", "data" => null)));
         }
     } catch (PDOException $e) {
         $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => $e->getMessage()))));
@@ -158,7 +158,7 @@ $app->post('/user/auth', function (Request $request, Response $response, array $
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -173,7 +173,7 @@ $app->post('/user/auth', function (Request $request, Response $response, array $
         if (count($data) == 1) {
             $user_id = $data[0]['user_id'];
             $token = generateToken($user_id);
-            $response->getBody()->write(json_encode(array("status" => "successfully generated for username $uname", "token" => $token, "data" => null)));
+            $response->getBody()->write(json_encode(array("status" => "success", "token" => $token, "data" => null)));
         } else {
             $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => "Authentication Failed"))));
         }
@@ -209,7 +209,7 @@ $app->get('/user/show', function (Request $request, Response $response) {
     $servername = "localhost";
     $dbusername = "root";
     $dbpassword = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
@@ -264,7 +264,7 @@ $app->put('/user/update', function (Request $request, Response $response) {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -281,7 +281,7 @@ $app->put('/user/update', function (Request $request, Response $response) {
         markTokenAsUsed($token);
 
         $newToken = generateToken($user_idFromToken);
-        $response->getBody()->write(json_encode(array("status" => "successfully updated for user $uname", "token" => $newToken, "data" => null)));
+        $response->getBody()->write(json_encode(array("status" => "success", "token" => $newToken, "data" => null)));
     } catch (PDOException $e) {
         $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => $e->getMessage()))));
     }
@@ -322,7 +322,7 @@ $app->delete('/user/delete', function (Request $request, Response $response) {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -335,7 +335,7 @@ $app->delete('/user/delete', function (Request $request, Response $response) {
 
         markTokenAsUsed($token);
 
-        $response->getBody()->write(json_encode(array("status" => "successfully deleted for user $uname", "data" => null)));
+        $response->getBody()->write(json_encode(array("status" => "success", "data" => null)));
     } catch (PDOException $e) {
         $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => $e->getMessage()))));
     }
@@ -367,7 +367,7 @@ $app->post('/author/register', function (Request $request, Response $response, a
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -389,7 +389,7 @@ $app->post('/author/register', function (Request $request, Response $response, a
             markTokenAsUsed($token);
 
             $newToken = generateToken($user_idFromToken);
-            $response->getBody()->write(json_encode(array("status" => "successfully registered $name", "token" => $newToken, "data" => null)));
+            $response->getBody()->write(json_encode(array("status" => "success", "token" => $newToken, "data" => null)));
         }
     } catch (PDOException $e) {
         $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => $e->getMessage()))));
@@ -424,7 +424,7 @@ $app->get('/author/show', function (Request $request, Response $response) {
     $servername = "localhost";
     $dbusername = "root";
     $dbpassword = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
@@ -439,7 +439,7 @@ $app->get('/author/show', function (Request $request, Response $response) {
 
             $newToken = generateToken($user_id);
 
-            return $response->write(json_encode(array("status" => "Succesfully load the list", "token" => $newToken, "data" => $author_tbl)));
+            return $response->write(json_encode(array("status" => "Success", "token" => $newToken, "data" => $author_tbl)));
         } else {
             return $response->write(json_encode(array("status" => "fail", "message" => "No authors found")));
         }
@@ -473,7 +473,7 @@ $app->put('/author/update', function (Request $request, Response $response) {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -488,7 +488,7 @@ $app->put('/author/update', function (Request $request, Response $response) {
         markTokenAsUsed($token);
 
         $newToken = generateToken($user_idFromToken);
-        $response->getBody()->write(json_encode(array("status" => "successfully updated author $name", "token" => $newToken, "data" => null)));
+        $response->getBody()->write(json_encode(array("status" => "success", "token" => $newToken, "data" => null)));
     } catch (PDOException $e) {
         $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => $e->getMessage()))));
     }
@@ -525,7 +525,7 @@ $app->put('/author/update', function (Request $request, Response $response) {
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "lib_db";
+        $dbname = "library";
 
         try {
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -540,7 +540,7 @@ $app->put('/author/update', function (Request $request, Response $response) {
 
             $newToken = generateToken($useridFromToken);
 
-            $response->getBody()->write(json_encode(array("status" => "successfully deleted", "token" => $newToken, "data" => null)));
+            $response->getBody()->write(json_encode(array("status" => "success", "token" => $newToken, "data" => null)));
         } catch (PDOException $e) {
             $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => $e->getMessage()))));
         }
@@ -573,7 +573,7 @@ $app->post('/book/register', function (Request $request, Response $response, arr
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -597,7 +597,7 @@ $app->post('/book/register', function (Request $request, Response $response, arr
             markTokenAsUsed($token);
 
             $newToken = generateToken($user_idFromToken);
-            $response->getBody()->write(json_encode(array("status" => "successfully added $title with author number $author_id", "token" => $newToken, "data" => null)));
+            $response->getBody()->write(json_encode(array("status" => "success", "token" => $newToken, "data" => null)));
         }
     } catch (PDOException $e) {
         $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => $e->getMessage()))));
@@ -631,7 +631,7 @@ $app->get('/book/show', function (Request $request, Response $response) {
     $servername = "localhost";
     $dbusername = "root";
     $dbpassword = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
@@ -646,7 +646,7 @@ $app->get('/book/show', function (Request $request, Response $response) {
 
             $newToken = generateToken($user_id);
 
-            return $response->write(json_encode(array("status" => "success here are the list", "token" => $newToken, "data" => $books_tbl)));
+            return $response->write(json_encode(array("status" => "success", "token" => $newToken, "data" => $books_tbl)));
         } else {
             return $response->write(json_encode(array("status" => "fail", "message" => "No books found")));
         }
@@ -681,7 +681,7 @@ $app->put('/book/update', function (Request $request, Response $response) {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -697,7 +697,7 @@ $app->put('/book/update', function (Request $request, Response $response) {
         markTokenAsUsed($token);
 
         $newToken = generateToken($user_idFromToken);
-        $response->getBody()->write(json_encode(array("status" => "successfully updated to $title with book $book_idToUpdate and author id $author_id", "token" => $newToken, "data" => null)));
+        $response->getBody()->write(json_encode(array("status" => "success", "token" => $newToken, "data" => null)));
     } catch (PDOException $e) {
         $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => $e->getMessage()))));
     }
@@ -734,7 +734,7 @@ $app->delete('/book/delete', function (Request $request, Response $response) {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -749,7 +749,7 @@ $app->delete('/book/delete', function (Request $request, Response $response) {
 
         $newToken = generateToken($user_idFromToken);
 
-        $response->getBody()->write(json_encode(array("status" => "successfully deleted book id $book_idToDelete", "token" => $newToken, "data" => null)));
+        $response->getBody()->write(json_encode(array("status" => "success", "token" => $newToken, "data" => null)));
     } catch (PDOException $e) {
         $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => $e->getMessage()))));
     }
@@ -781,7 +781,7 @@ $app->post('/book_author/register', function (Request $request, Response $respon
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -805,7 +805,7 @@ $app->post('/book_author/register', function (Request $request, Response $respon
             markTokenAsUsed($token);
 
             $newToken = generateToken($user_idFromToken);
-            $response->getBody()->write(json_encode(array("status" => "successfully added book_id $book_id and author_id $author_id", "token" => $newToken, "data" => null)));
+            $response->getBody()->write(json_encode(array("status" => "success", "token" => $newToken, "data" => null)));
         }
     } catch (PDOException $e) {
         $response->getBody()->write(json_encode(array("status" => "fail", "data" => array("title" => $e->getMessage()))));
@@ -839,7 +839,7 @@ $app->get('/book_author/show', function (Request $request, Response $response) {
     $servername = "localhost";
     $dbusername = "root";
     $dbpassword = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
@@ -889,7 +889,7 @@ $app->put('/book_author/update', function (Request $request, Response $response)
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -942,7 +942,7 @@ $app->delete('/book_author/delete', function (Request $request, Response $respon
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "lib_db";
+    $dbname = "library";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
