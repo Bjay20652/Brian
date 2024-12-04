@@ -38,16 +38,12 @@ CREATE TABLE `author_tbl` (
 --
 
 INSERT INTO `author_tbl` (`collection_id`, `author_id`, `name`) VALUES
-(0, 1, 'Hello world'),
-(0, 2, 'Harper Lee'),
-(0, 3, 'George Orwell'),
-(0, 4, 'Jane Austen'),
-(0, 5, 'J.D. Salinger'),
-(0, 7, 'JohnySins'),
-(0, 8, 'JOHN REY'),
-(0, 9, 'thomas'),
-(0, 11, 'James Mc Arthur'),
-(0, 12, 'John Rey B');
+(0, 1, 'Brian jay'),
+(0, 2, 'Brian jay'),
+(0, 3, 'bjj'),
+(0, 4, 'Bj5'),
+(0, 5, 'Bj11');
+
 
 -- --------------------------------------------------------
 
@@ -86,15 +82,8 @@ CREATE TABLE `books_tbl` (
 
 INSERT INTO `books_tbl` (`book_id`, `title`, `author_id`) VALUES
 (5, 'Rizal', 1),
-(7, '1984', 3),
-(8, 'Pride and Prejudice', 4),
-(9, 'The Catcher in the Rye', 5),
-(10, 'The Incredible Hulk', 1),
-(11, 'The micerables', 2),
-(12, 'The eyyyyy', 3),
-(13, 'The eyyyyybiiisiii', 4),
-(14, 'works of Rizal', 4),
-(15, 'works', 4);
+(15, 'works', 4),
+(17, 'brian's book', 1);
 
 -- --------------------------------------------------------
 
@@ -269,8 +258,6 @@ INSERT INTO `users_tbl` (`user_id`, `username`, `password`) VALUES
 (11, 'a', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb'),
 (12, 'abc', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb'),
 (13, 'cbd', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb'),
-(15, 'johnrey', 'ea98e557fb6211a2cc6b6f1af902889cf25dec1644a3706f00ad181d4178cc5e'),
-(17, 'johnreybaliguat', '3297ae2a9175ffac49b6ce098dd038d7f737cd363e39fe05980aa9e89ce7fc6d');
 
 --
 -- Indexes for dumped tables
